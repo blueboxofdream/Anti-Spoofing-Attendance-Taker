@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Attendence system</title>
+   
+</head>
+<body>
+    <h1>Smart Attendence System</h1>
+    <button id="registerButton">Register</button>
+    <button id="trainButton">Train</button>
+    <button id="attendanceButton">Take Attendance</button>
+    
+
+    <script>
+             
+        document.getElementById('registerButton').addEventListener('click', function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/register', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response.message);
+
+                    if (response.status === 'success') {
+                        // Show a pop-up for successful registration
+                        window.alert('Registration successful!');
+                    } else {
+                        // Handle other cases if needed
+                        window.alert('Registration failed. Please try again.');
+                    }
+                }
+            };
+            xhr.send();
+        });
+
+        document.getElementById('trainButton').addEventListener('click', function() {
+            var xhr1 = new XMLHttpRequest();
+            xhr1.open('GET', '/train', true);
+            xhr1.onreadystatechange = function() {
+                if (xhr1.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response.message);
+
+                    if (response.status === 'success') {
+                        // Show a pop-up for successful registration
+                        window.alert('train successful!');
+                    } else {
+                        // Handle other cases if needed
+                        window.alert('training failed. Please try again.');
+                    }
+                }
+            };
+            xhr1.send();
+        });
+        
+        document.getElementById('attendanceButton').addEventListener('click', function() {
+    var xhr2 = new XMLHttpRequest();
+    xhr2.open('GET', '/take_attendance', true);
+    xhr2.onreadystatechange = function() {
+        // alert("hello")
+        if (xhr2.readyState === 4) {
+            if (xhr2.status === 200) {
+                var response = JSON.parse(xhr2.responseText);
+                // console.log(response.result);  // Log the entire response for debugging
+
+                console.log(response);
+
+                if (response.result === 'success') {
+                    // Show a pop-up for successful attendance
+                    window.alert('Attendance taken successfully!');
+                } else {
+                    // Handle other cases if needed
+                   // window.alert('Failed to take attendance. Please try again.');
+                }
+            } else {
+                // Log the error status and responseText for debugging
+                console.error('Error status:', xhr2.status);
+                console.error('Error response:', xhr2.responseText);
+                
+                // Handle the error case as needed
+                window.alert('Failed to take attendance. Please check the console for details.');
+            }
+        }
+    };
+    xhr2.send();
+});
+
+
+    </script>
+    
+    
+</body>
+</html>
